@@ -1168,8 +1168,12 @@ button::-moz-focus-inner, input::-moz-focus-inner {
    transition: all 0.3s ease-in-out;
 }
 
-.pgn__num:hover {
+a.pgn__num:hover {
    background: #c4c4c4;
+}
+
+.pgn__num:hover {
+   /*background: #c4c4c4;*/
    color: #151515;
 }
 
