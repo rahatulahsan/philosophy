@@ -25,7 +25,7 @@
 
                 <div class="header__logo">
                     <a class="logo" href="index.html">
-                        <img src="images/logo.svg" alt="Homepage">
+                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/logo.svg" alt="Homepage">
                     </a>
                 </div> <!-- end header__logo -->
 

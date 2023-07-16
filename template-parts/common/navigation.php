@@ -7,11 +7,15 @@
 
     <?php 
     
-        wp_nav_menu(array(
+        $navigation = wp_nav_menu(array(
             'theme_location' => 'primary',
             'menu_id' => 'primary',
             'menu_class' => 'header__nav',
+            'echo' => false
         ));
+
+        $navigation = str_replace('menu-item-has-children', 'menu-item-has-children has-children', $navigation);
+        echo $navigation;
     
     ?>
     <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu"><?php _e('Close', 'philosophy'); ?></a>
