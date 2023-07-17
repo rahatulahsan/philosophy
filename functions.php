@@ -92,3 +92,17 @@ add_filter( 'comment_form_default_fields', 'be_comment_form_fields' );
 
 
 remove_action( 'term_description', 'wpautop' );
+
+function philosophy_sidebar_widget(){
+    register_sidebar( array(
+		'name'          => __( 'About Us Sidebar', 'philosophy' ),
+		'id'            => 'about-us',
+		'description'   => __( 'Widgets in this area will be shown in about us page.', 'philosophy' ),
+		'before_widget' => '<div id="%1$s" class="col-block %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="quarter-top-margin">',
+		'after_title'   => '</h3>',
+	) );
+}
+
+add_action('widgets_init', 'philosophy_sidebar_widget');
