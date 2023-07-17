@@ -6,6 +6,7 @@ function philosophy_theme_setup() {
 
     load_theme_textdomain('philosophy', '');
     add_theme_support( 'title-tag' );
+    add_theme_support('custom-logo');
     add_theme_support( 'post-thumbnails' );
     add_theme_support('html5', array('comment-form', 'search-form'));
     add_theme_support( 'post-formats', array( 'aside', 'gallery', 'image', 'video', 'quote', 'audio', 'link' ) );
@@ -178,3 +179,24 @@ if( function_exists('acf_add_options_page') ) {
     ));
     
 }
+
+function philosophy_search_form(){
+
+    $homedir = home_url('/');
+    $search_label = __('Search for:' ,'philosophy');
+    $search_btn = __('Search', 'philosophy');
+    $new_form = <<<FORM
+    <form role="search" method="get" class="header__search-form" action="{$homedir}">
+        <label>
+            <span class="hide-content">{$search_label}</span>
+            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
+        </label>
+        <input type="submit" class="search-submit" value="{search_btn}">
+    </form>
+
+    FORM;
+
+    return $new_form;
+}
+
+add_filter('get_search_form', 'philosophy_search_form');

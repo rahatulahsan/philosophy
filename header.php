@@ -24,37 +24,35 @@
             <div class="header__content row">
 
                 <div class="header__logo">
-                    <a class="logo" href="index.html">
-                        <img src="<?php echo get_theme_file_uri(); ?>/assets/images/logo.svg" alt="Homepage">
-                    </a>
+                    <?php 
+
+                    if(has_custom_logo()){
+                        the_custom_logo();
+                    }else{
+                        echo '<h1><a href='.home_url("/").'>'.get_bloginfo('name'). '</a></h1>';
+                    }
+                    
+                    ?>
                 </div> <!-- end header__logo -->
 
                 <ul class="header__social">
-                    <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
+                    <?php 
+                    
+                    $philosophy_header_social = get_field('header_social','option');
+                    foreach($philosophy_header_social as $social){?>
+                        <li>
+                            <a href="<?php echo $social['icon_url'] ?>"><i class="<?php echo $social['icon_class']; ?>" aria-hidden="true"></i></a>
+                        </li>
+                    <?php }
+
+                    ?>
                 </ul> <!-- end header__social -->
 
                 <a class="header__search-trigger" href="#0"></a>
 
                 <div class="header__search">
 
-                    <form role="search" method="get" class="header__search-form" action="#">
-                        <label>
-                            <span class="hide-content">Search for:</span>
-                            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
-                        </label>
-                        <input type="submit" class="search-submit" value="Search">
-                    </form>
+                    <?php get_search_form(); ?>
         
                     <a href="#0" title="Close Search" class="header__overlay-close">Close</a>
 

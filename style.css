@@ -200,3 +200,14 @@ img.avatar.avatar-32.photo {
 .reply {
     padding-left: 80px;
 }
+
+.header__logo h1{
+    margin-top: 0;
+}
+
+.header__logo a{
+    color:#fff;
+}
+.header__logo a:hover{
+    color:blueviolet;
+}
