@@ -15,7 +15,7 @@
         ));
 
         $navigation = str_replace('menu-item-has-children', 'menu-item-has-children has-children', $navigation);
-        echo $navigation;
+        echo wp_kses_post($navigation);
     
     ?>
     <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu"><?php _e('Close', 'philosophy'); ?></a>

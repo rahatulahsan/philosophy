@@ -16,6 +16,8 @@
 
 <body id="top" <?php body_class( ); ?>>
 
+    <?php wp_body_open(  ); ?>
+
     <!-- pageheader
     ================================================== -->
     <section class="s-pageheader <?php if(is_home()) echo "s-pageheader--home"; ?>">
@@ -41,7 +43,7 @@
                     $philosophy_header_social = get_field('header_social','option');
                     foreach($philosophy_header_social as $social){?>
                         <li>
-                            <a href="<?php echo $social['icon_url'] ?>"><i class="<?php echo $social['icon_class']; ?>" aria-hidden="true"></i></a>
+                            <a href="<?php echo esc_url($social['icon_url']); ?>"><i class="<?php echo esc_html($social['icon_class']); ?>" aria-hidden="true"></i></a>
                         </li>
                     <?php }
 

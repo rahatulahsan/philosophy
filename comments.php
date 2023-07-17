@@ -10,9 +10,9 @@
                         
                         $philosophy_cn = get_comments_number();
                         if($philosophy_cn <= 1){
-                            echo $philosophy_cn . " " . __('Comment', 'philosophy');
+                            echo esc_html($philosophy_cn) . " " . __('Comment', 'philosophy');
                         }else{
-                            echo $philosophy_cn . " " . __('Comments', 'philosophy');
+                            echo esc_html($philosophy_cn) . " " . __('Comments', 'philosophy');
                         }
                         
                         ?>

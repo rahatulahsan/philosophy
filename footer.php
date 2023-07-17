@@ -55,7 +55,7 @@
                     $philosophy_footer_social = get_field('social_media','option');
                     foreach($philosophy_footer_social as $social){?>
                         <li>
-                            <a href="<?php echo $social['url'] ?>"><i class="<?php echo $social['social_icon_class']; ?>" aria-hidden="true"></i></a>
+                            <a href="<?php echo esc_url($social['url']); ?>"><i class="<?php echo esc_html($social['social_icon_class']); ?>" aria-hidden="true"></i></a>
                         </li>
                     <?php }
 
@@ -76,7 +76,7 @@
                 ));
                 echo '<div class="tagcloud">';
                 foreach($tags as $tag){?>
-                    <a href="<?php echo get_tag_link( $tag->term_id ); ?>"><?php echo $tag->name; ?></a>
+                    <a href="<?php echo get_tag_link( $tag->term_id ); ?>"><?php echo esc_html($tag->name); ?></a>
                 <?php }
                 echo '</div>';
                 

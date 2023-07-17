@@ -1,4 +1,4 @@
-<article class="masonry__brick entry format-standard" data-aos="fade-up">
+<article <?php post_class( 'masonry__brick entry format-standard' ); ?> data-aos="fade-up">
                         
         <div class="entry__thumb">
             <a href="single-standard.html" class="entry__thumb-link">
