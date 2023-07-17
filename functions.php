@@ -103,6 +103,24 @@ function philosophy_sidebar_widget(){
 		'before_title'  => '<h3 class="quarter-top-margin">',
 		'after_title'   => '</h3>',
 	) );
+    register_sidebar( array(
+		'name'          => __( 'Contact Page Map', 'philosophy' ),
+		'id'            => 'contact-us-map',
+		'description'   => __( 'Widgets in this area will be shown in contact us page map section.', 'philosophy' ),
+		'before_widget' => '<div id="%1$s" class="%2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '',
+		'after_title'   => '',
+	) );
+    register_sidebar( array(
+		'name'          => __( 'Contact Page Information', 'philosophy' ),
+		'id'            => 'contact-page-info',
+		'description'   => __( 'Widgets in this area will be shown in Contact Us page.', 'philosophy' ),
+		'before_widget' => '<div id="%1$s" class="col-six tab-full %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3 class="quarter-top-margin">',
+		'after_title'   => '</h3>',
+	) );
 }
 
 add_action('widgets_init', 'philosophy_sidebar_widget');
