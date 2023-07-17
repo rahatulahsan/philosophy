@@ -84,6 +84,11 @@ function philosophy_register_required_plugins() {
 			'slug'      => 'wp-google-maps',
 			'required'  => false,
 		),
+		array(
+			'name'      => 'Advanced Custom Fields: Font Awesome Field',
+			'slug'      => 'advanced-custom-fields-font-awesome',
+			'required'  => false,
+		),
 
 
 	);

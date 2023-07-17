@@ -121,6 +121,43 @@ function philosophy_sidebar_widget(){
 		'before_title'  => '<h3 class="quarter-top-margin">',
 		'after_title'   => '</h3>',
 	) );
+    register_sidebar( array(
+		'name'          => __( 'Before Footer Widget', 'philosophy' ),
+		'id'            => 'before-footer-right',
+		'description'   => __( 'Widgets in this area will be shown in before footer section.', 'philosophy' ),
+		'before_widget' => '<div id="%1$s" class="%2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h3>',
+		'after_title'   => '</h3>',
+	) );
+    
 }
 
 add_action('widgets_init', 'philosophy_sidebar_widget');
+
+
+// ACF PAGE OPTIONS
+
+if( function_exists('acf_add_options_page') ) {
+    
+    acf_add_options_page(array(
+        'page_title'    => 'Theme General Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'redirect'      => false
+    ));
+    
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Header Settings',
+        'menu_title'    => 'Header',
+        'parent_slug'   => 'theme-general-settings',
+    ));
+    
+    acf_add_options_sub_page(array(
+        'page_title'    => 'Theme Footer Settings',
+        'menu_title'    => 'Footer',
+        'parent_slug'   => 'theme-general-settings',
+    ));
+    
+}

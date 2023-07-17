@@ -5,92 +5,62 @@
         <div class="row top">
 
             <div class="col-eight md-six tab-full popular">
-                <h3>Popular Posts</h3>
+                <h3><?php _e('Popular Posts', 'philosophy'); ?></h3>
 
                 <div class="block-1-2 block-m-full popular__posts">
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/wheel-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">Visiting Theme Parks Improves Your Health.</a></h5>
-                        <section class="popular__meta">
-                                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-19">Dec 19, 2017</time></span>
-                        </section>
-                    </article>
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/shutterbug-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">Key Benefits Of Family Photography.</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-18">Dec 18, 2017</time></span>
-                        </section>
-                    </article>
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/cookies-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">Absolutely No Sugar Oatmeal Cookies.</a></h5>
-                        <section class="popular__meta">
-                                <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
-                        </section>
-                    </article>
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/beetle-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">Throwback To The Good Old Days.</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-16">Dec 16, 2017</time></span>
-                        </section>
-                    </article>
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/tulips-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">10 Interesting Facts About Caffeine.</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-14">Dec 14, 2017</time></span>
-                        </section>
-                    </article>
-                    <article class="col-block popular__post">
-                        <a href="#0" class="popular__thumb">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/thumbs/small/salad-150.jpg" alt="">
-                        </a>
-                        <h5><a href="#0">Healthy Mediterranean Salad Recipes</a></h5>
-                        <section class="popular__meta">
-                            <span class="popular__author"><span>By</span> <a href="#0"> John Doe</a></span>
-                            <span class="popular__date"><span>on</span> <time datetime="2017-12-12">Dec 12, 2017</time></span>
-                        </section>
-                    </article>
+                    <?php 
+                    
+                    $args = array(
+                        'posts_per_page' => 6,
+                        'meta_key' => 'popular',
+                        'meta_value' => '1'
+                    );
+
+                    $philosophy_popular_posts = new WP_Query($args);
+                    while($philosophy_popular_posts->have_posts()){
+                        $philosophy_popular_posts->the_post(); ?>
+
+                        <article class="col-block popular__post">
+                            <a href="<?php the_permalink(); ?>" class="popular__thumb">
+                                <?php the_post_thumbnail(); ?>
+                            </a>
+                            <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                            <section class="popular__meta">
+                                    <span class="popular__author"><span><?php _e('By','philosophy') ?></span> <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>"> <?php the_author(); ?></a></span>
+                                <span class="popular__date"><span><?php _e('on', 'philosophy'); ?></span> <time datetime="2017-12-19"><?php echo get_the_date(); ?></time></span>
+                            </section>
+                        </article>
+
+                    <?php }
+
+                    wp_reset_postdata(  );
+                    
+                    ?>     
+
                 </div> <!-- end popular_posts -->
             </div> <!-- end popular -->
             
             <div class="col-four md-six tab-full about">
-                <h3>About Philosophy</h3>
-
-                <p>
-                Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat. Pellentesque in ipsum id orci porta dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
-                </p>
+                <?php 
+                
+                if(is_active_sidebar('before-footer-right')){
+                    dynamic_sidebar( 'before-footer-right' );
+                }
+                
+                ?>
 
                 <ul class="about__social">
-                    <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
+                    <?php 
+                    
+                    $philosophy_footer_social = get_field('social_media','option');
+                    foreach($philosophy_footer_social as $social){?>
+                        <li>
+                            <a href="<?php echo $social['url'] ?>"><i class="<?php echo $social['social_icon_class']; ?>" aria-hidden="true"></i></a>
+                        </li>
+                    <?php }
+
+                    ?>
+                    
                 </ul> <!-- end header__social -->
             </div> <!-- end about -->
 
@@ -98,21 +68,19 @@
 
         <div class="row bottom tags-wrap">
             <div class="col-full tags">
-                <h3>Tags</h3>
-
-                <div class="tagcloud">
-                    <a href="#0">Salad</a>
-                    <a href="#0">Recipe</a>
-                    <a href="#0">Places</a>
-                    <a href="#0">Tips</a>
-                    <a href="#0">Friends</a>
-                    <a href="#0">Travel</a>
-                    <a href="#0">Exercise</a>
-                    <a href="#0">Reading</a>
-                    <a href="#0">Running</a>
-                    <a href="#0">Self-Help</a>
-                    <a href="#0">Vacation</a>
-                </div> <!-- end tagcloud -->
+                <h3><?php _e('Tags', 'philosophy'); ?></h3>
+                <?php 
+                
+                $tags = get_tags(array(
+                    'hide_empty' => true
+                ));
+                echo '<div class="tagcloud">';
+                foreach($tags as $tag){?>
+                    <a href="<?php echo get_tag_link( $tag->term_id ); ?>"><?php echo $tag->name; ?></a>
+                <?php }
+                echo '</div>';
+                
+                ?>
             </div> <!-- end tags -->
         </div> <!-- end tags-wrap -->
 
