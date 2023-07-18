@@ -204,3 +204,16 @@ function philosophy_search_form(){
 }
 
 add_filter('get_search_form', 'philosophy_search_form');
+
+
+
+function category_post_count($category_title){
+    if('Velit' == $category_title){
+        $visit_count = get_option('category_velit');
+        $visit_count = $visit_count?$visit_count:0;
+        $visit_count++;
+        update_option('category_velit', $visit_count);
+    }
+}
+
+add_action('philosophy_category_page', 'category_post_count');

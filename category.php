@@ -1,3 +1,4 @@
+<?php do_action('philosophy_category_page', single_cat_title( '', false )); ?>
 <?php get_header(); ?>
 
     <!-- s-content
