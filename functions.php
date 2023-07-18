@@ -58,7 +58,8 @@ function philosophy_pagination(){
     $links =  paginate_links( array(
         'current' => max(1, get_query_var( 'paged' )),
         'total' => $wp_query->max_num_pages,
-        'type' => 'list'
+        'type' => 'list',
+        'mid_size' => apply_filters('phiosophy_pagination_midsize', 3)
     ) );
 
     if($links){
@@ -184,29 +185,32 @@ if( function_exists('acf_add_options_page') ) {
     
 }
 
-function philosophy_search_form(){
+// PLUGGABLE FUNCTION. CUSTOMER CAN MODIFY IN CHILD THEME IF NEEDED
+if(function_exists('philosophy_search_form')){
+    function philosophy_search_form(){
 
-    $homedir = home_url('/');
-    $search_label = __('Search for:' ,'philosophy');
-    $search_btn = __('Search', 'philosophy');
-    $new_form = <<<FORM
-    <form role="search" method="get" class="header__search-form" action="{$homedir}">
-        <label>
-            <span class="hide-content">{$search_label}</span>
-            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
-        </label>
-        <input type="submit" class="search-submit" value="{search_btn}">
-    </form>
+        $homedir = home_url('/');
+        $search_label = __('Search for:' ,'philosophy');
+        $search_btn = __('Search', 'philosophy');
+        $new_form = <<<FORM
+        <form role="search" method="get" class="header__search-form" action="{$homedir}">
+            <label>
+                <span class="hide-content">{$search_label}</span>
+                <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
+            </label>
+            <input type="submit" class="search-submit" value="{search_btn}">
+        </form>
 
-    FORM;
+        FORM;
 
-    return $new_form;
+        return $new_form;
+    }
 }
 
 add_filter('get_search_form', 'philosophy_search_form');
 
 
-
+// ACTION HOOK FOR THE SINGLE CATEGORY PAGE
 function category_post_count($category_title){
     if('Velit' == $category_title){
         $visit_count = get_option('category_velit');
@@ -217,3 +221,28 @@ function category_post_count($category_title){
 }
 
 add_action('philosophy_category_page', 'category_post_count');
+
+
+
+function text_before_cat_title(){
+    echo '<p>Philosophy Theme</p>';
+}
+add_action('philosophy_before_category_title', 'text_before_cat_title');
+
+remove_action('philosophy_before_category_title', 'text_before_cat_title');
+
+// TESTING FILTER HOOK
+function pagination_mid_size($midsize){
+    return 2;
+}
+
+add_filter('phiosophy_pagination_midsize', 'pagination_mid_size');
+
+function philosophy_banner_class($banner_class){
+    if(is_home()){
+        return $banner_class;
+    }else{
+        return "";
+    }
+}
+add_filter('philosophy_home_banner_class', 'philosophy_banner_class');

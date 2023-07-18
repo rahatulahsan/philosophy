@@ -7,7 +7,8 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                <h1>Category: <?php single_cat_title(); ?></h1>
+                <?php do_action('philosophy_before_category_title'); ?>
+                <h1><?php _e('Category:' ,'philosophy'); ?> <?php single_cat_title(); ?></h1>
 
                 <p class="lead"><?php echo category_description(); ?></p>
             </div>
