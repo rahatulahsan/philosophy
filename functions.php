@@ -6,7 +6,7 @@ if ( ! isset( $content_width ) ) $content_width = 960;
 
 function philosophy_theme_setup() {
 
-    load_theme_textdomain('philosophy', '');
+    load_theme_textdomain('philosophy', get_theme_file_uri('/languages'));
     add_theme_support( 'title-tag' );
     add_theme_support('custom-logo');
     add_theme_support( 'automatic-feed-links' );
