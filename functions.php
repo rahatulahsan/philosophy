@@ -51,26 +51,27 @@ function philosophy_assets(){
 add_action('wp_enqueue_scripts', 'philosophy_assets');
 
 
-// HOMEPAGE PAGINATION SETUP
-function philosophy_pagination(){
+// HOMEPAGE PAGINATION SETUP. PLUGGABLE FUNCTION
+if (!function_exists('philosophy_pagination')){
+    function philosophy_pagination(){
 
-    global $wp_query;
-    $links =  paginate_links( array(
-        'current' => max(1, get_query_var( 'paged' )),
-        'total' => $wp_query->max_num_pages,
-        'type' => 'list',
-        'mid_size' => apply_filters('phiosophy_pagination_midsize', 3)
-    ) );
+        global $wp_query;
+        $links =  paginate_links( array(
+            'current' => max(1, get_query_var( 'paged' )),
+            'total' => $wp_query->max_num_pages,
+            'type' => 'list',
+            'mid_size' => apply_filters('phiosophy_pagination_midsize', 3)
+        ) );
 
-    if($links){
-        $links = str_replace('page-numbers', 'pgn__num', $links);
-        $links = str_replace("<ul class='pgn__num'>", "<ul>", $links);
-        $links = str_replace('next pgn__num', 'pgn__next', $links);
-        $links = str_replace('prev pgn__num', 'pgn__prev', $links);
-        echo wp_kses_post($links);
+        if($links){
+            $links = str_replace('page-numbers', 'pgn__num', $links);
+            $links = str_replace("<ul class='pgn__num'>", "<ul>", $links);
+            $links = str_replace('next pgn__num', 'pgn__next', $links);
+            $links = str_replace('prev pgn__num', 'pgn__prev', $links);
+            echo wp_kses_post($links);
+        }
+        
     }
-
-    
 }
 
 
@@ -186,26 +187,26 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 // PLUGGABLE FUNCTION. CUSTOMER CAN MODIFY IN CHILD THEME IF NEEDED
-if(function_exists('philosophy_search_form')){
-    function philosophy_search_form(){
 
-        $homedir = home_url('/');
-        $search_label = __('Search for:' ,'philosophy');
-        $search_btn = __('Search', 'philosophy');
-        $new_form = <<<FORM
-        <form role="search" method="get" class="header__search-form" action="{$homedir}">
-            <label>
-                <span class="hide-content">{$search_label}</span>
-                <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
-            </label>
-            <input type="submit" class="search-submit" value="{search_btn}">
-        </form>
+function philosophy_search_form(){
 
-        FORM;
+    $homedir = home_url('/');
+    $search_label = __('Search for:' ,'philosophy');
+    $search_btn = __('Search', 'philosophy');
+    $new_form = <<<FORM
+    <form role="search" method="get" class="header__search-form" action="{$homedir}">
+        <label>
+            <span class="hide-content">{$search_label}</span>
+            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
+        </label>
+        <input type="submit" class="search-submit" value="{search_btn}">
+    </form>
 
-        return $new_form;
-    }
+    FORM;
+
+    return $new_form;
 }
+
 
 add_filter('get_search_form', 'philosophy_search_form');
 
