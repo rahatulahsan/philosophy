@@ -193,15 +193,26 @@ function philosophy_search_form(){
     $homedir = home_url('/');
     $search_label = __('Search for:' ,'philosophy');
     $search_btn = __('Search', 'philosophy');
+    $post_type = <<<PT
+    <input type="hidden" name="post_type" value="post" />
+    PT;
+
+    if(is_post_type_archive( 'book' )){
+        $post_type = <<<PT
+    <input type="hidden" name="post_type" value="book" />
+    PT;
+    }
+
     $new_form = <<<FORM
     <form role="search" method="get" class="header__search-form" action="{$homedir}">
         <label>
             <span class="hide-content">{$search_label}</span>
             <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="{$search_label}" autocomplete="off">
         </label>
+        {$post_type}
         <input type="submit" class="search-submit" value="{search_btn}">
     </form>
-
+    
     FORM;
 
     return $new_form;
@@ -247,3 +258,54 @@ function philosophy_banner_class($banner_class){
     }
 }
 add_filter('philosophy_home_banner_class', 'philosophy_banner_class');
+
+
+
+
+function philosophy_custom_posts_init() {
+	$labels = array(
+		'name'                  => _x( 'Books', 'Post type general name', 'philosophy' ),
+		'singular_name'         => _x( 'Book', 'Post type singular name', 'philosophy' ),
+		'menu_name'             => _x( 'Books', 'Admin Menu text', 'philosophy' ),
+		'name_admin_bar'        => _x( 'Book', 'Add New on Toolbar', 'philosophy' ),
+		'add_new'               => __( 'Add New', 'philosophy' ),
+		'add_new_item'          => __( 'Add New Book', 'philosophy' ),
+		'new_item'              => __( 'New Book', 'philosophy' ),
+		'edit_item'             => __( 'Edit Book', 'philosophy' ),
+		'view_item'             => __( 'View Book', 'philosophy' ),
+		'all_items'             => __( 'All Books', 'philosophy' ),
+		'search_items'          => __( 'Search Books', 'philosophy' ),
+		'parent_item_colon'     => __( 'Parent Books:', 'philosophy' ),
+		'not_found'             => __( 'No books found.', 'philosophy' ),
+		'not_found_in_trash'    => __( 'No books found in Trash.', 'philosophy' ),
+		'featured_image'        => _x( 'Book Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'philosophy' ),
+		'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'philosophy' ),
+		'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'philosophy' ),
+		'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'philosophy' ),
+		'archives'              => _x( 'Book archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'philosophy' ),
+		'insert_into_item'      => _x( 'Insert into book', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'philosophy' ),
+		'uploaded_to_this_item' => _x( 'Uploaded to this book', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'philosophy' ),
+		'filter_items_list'     => _x( 'Filter books list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'philosophy' ),
+		'items_list_navigation' => _x( 'Books list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'philosophy' ),
+		'items_list'            => _x( 'Books list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'philosophy' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'book' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+	);
+
+	register_post_type( 'book', $args );
+}
+
+add_action( 'init', 'philosophy_custom_posts_init' );
