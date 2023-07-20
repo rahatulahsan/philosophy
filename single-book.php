@@ -30,10 +30,28 @@ get_header();
             </div> <!-- end s-content__media -->
 
             <div class="col-full s-content__main">
-
+                
                 <?php 
                     the_content();
-                    wp_link_pages(); 
+                    
+                    wp_link_pages();?>
+
+                    <h3><?php echo _e('Chapters', 'philosophy'); ?></h3>
+                    <?php 
+                    $philosophy_chapters_arg = array(
+                        'post_type' => "chapter",
+                        'posts_per_page' => -1,
+                        'meta_key' => 'book_name',
+                        'meta_value' => get_the_ID(),
+                        'orderby' => get_field('chapter_organise')
+                    );
+                    $philosophy_chapters = new WP_Query($philosophy_chapters_arg);
+                    while($philosophy_chapters->have_posts()){ 
+                        $philosophy_chapters->the_post(); ?>    
+
+                            <a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a><br>
+                        
+                    <?php }
                 ?>
 
                 <p class="s-content__tags">

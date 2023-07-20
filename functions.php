@@ -306,6 +306,41 @@ function philosophy_custom_posts_init() {
 	);
 
 	register_post_type( 'book', $args );
+
+    register_post_type('chapter', array(
+        'labels' => array(
+            'name' => __('Chapters', 'philosophy'),
+            'singular_name' => __('Chapter', 'philosophy'),
+            'add_new_item' => __('Add New Chapter', 'philosophy'),
+            'edit_item' => __('Edit Chapter', 'philosophy'),
+            'new_item' => __('New Chapter', 'philosophy'),
+            'new_items' => __('New Chapters', 'philosophy'),
+            
+        ),
+        'public' => true,
+        'show_ui' => true,
+        'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+        'show_in_rest' => true,
+        'rewrite'      => array( 'slug' => 'book/%book%/chapter' ),
+        'menu_icon' => 'dashicons-format-quote'
+    ));
 }
 
 add_action( 'init', 'philosophy_custom_posts_init' );
+
+
+
+function philosophy_cpt_slug_fix($post_link, $id){
+    $p = get_post($id);
+    if(is_object($p) && 'chapter' == get_post_type($id)){
+        $parent_post_id = get_field('book_name');
+        $parent_post = get_post($parent_post_id);
+        if($parent_post){
+            $post_link = str_replace('%book%', $parent_post->post_name, $post_link);
+        }
+        
+    }
+    return $post_link;
+}
+
+add_filter('post_type_link', 'philosophy_cpt_slug_fix', 1, 2);
