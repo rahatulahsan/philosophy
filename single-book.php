@@ -52,12 +52,26 @@ get_header();
                             <a href="<?php echo the_permalink(); ?>"><?php the_title(); ?></a><br>
                         
                     <?php }
+                    wp_reset_postdata(  );
                 ?>
 
-                <p class="s-content__tags">
-                    <span><?php echo _e('Post Tags', 'philosophy'); ?></span>
+                <?php 
+                
+                if(get_the_tag_list()){ ?>
+                    <p class="s-content__tags">
+                        <span><?php echo _e('Post Tags', 'philosophy'); ?></span>
 
-                    <?php echo get_the_tag_list('<span class="s-content__tag-list">', ' ', '</span>' ); ?>
+                        <?php echo get_the_tag_list('<span class="s-content__tag-list">', ' ', '</span>' ); ?>
+                    </p> <!-- end s-content__tags -->
+
+                <?php }
+                
+                ?>
+                
+                <p class="s-content__tags">
+                    <span><?php echo _e('Book Language', 'philosophy'); ?></span>
+
+                    <?php the_terms(get_the_ID(), 'language', '<span class="s-content__tag-list">', ', ', '</span>' ); ?>
                 </p> <!-- end s-content__tags -->
 
                 <div class="s-content__author">

@@ -307,6 +307,22 @@ function philosophy_custom_posts_init() {
 
 	register_post_type( 'book', $args );
 
+    // Register Taxonomy for Book Post Type
+    register_taxonomy( 'language', 'book', array(
+        'labels' => array(
+            'name' => __('Languages', 'philosophy'),
+            'singular_name' => __('Language', 'philosophy')
+        ),
+        'rewrite' => array(
+            'slug' => 'books/language',
+            'with_front' => false,
+            'hierarchical' => true
+        ),
+        'hierarchical' => true,
+        'show_admin_column' => true
+
+    ) );
+
     register_post_type('chapter', array(
         'labels' => array(
             'name' => __('Chapters', 'philosophy'),
@@ -344,3 +360,25 @@ function philosophy_cpt_slug_fix($post_link, $id){
 }
 
 add_filter('post_type_link', 'philosophy_cpt_slug_fix', 1, 2);
+
+
+function philosophy_footer_tag_heading_item($heading){
+    if(is_post_type_archive('book')){
+        $heading = __('Languages', 'philosophy');
+    }
+    return $heading;
+}
+
+add_filter('philosophy_footer_tag_heading', 'philosophy_footer_tag_heading_item');
+
+function philosophy_footer_language_items($items){
+    if(is_post_type_archive('book')){
+        $items = get_terms(array(
+            'taxonomy' => 'language',
+            'hide_empty' => true
+        ));
+    }
+    return $items;
+
+}
+add_filter('philosophy_footer_tag_items', 'philosophy_footer_language_items');

@@ -68,14 +68,20 @@
 
         <div class="row bottom tags-wrap">
             <div class="col-full tags">
-                <h3><?php _e('Tags', 'philosophy'); ?></h3>
+                    
                 <?php 
                 
-                $tags = get_tags(array(
-                    'hide_empty' => true
-                ));
+                $philosophy_footer_tag_heading = apply_filters('philosophy_footer_tag_heading', __('Tags', 'philosophy'));
+                $philosophy_footer_tag_items  = apply_filters('philosophy_footer_tag_items', get_tags(array(
+                    'hide_empty' => true)));               
+                ?>
+
+                <h3><?php echo $philosophy_footer_tag_heading; ?></h3>
+                
+                <?php 
+                
                 echo '<div class="tagcloud">';
-                foreach($tags as $tag){?>
+                foreach($philosophy_footer_tag_items as $tag){?>
                     <a href="<?php echo get_tag_link( $tag->term_id ); ?>"><?php echo esc_html($tag->name); ?></a>
                 <?php }
                 echo '</div>';
