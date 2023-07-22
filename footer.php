@@ -73,11 +73,12 @@
                 
                 $philosophy_footer_tag_heading = apply_filters('philosophy_footer_tag_heading', __('Tags', 'philosophy'));
                 $philosophy_footer_tag_items  = apply_filters('philosophy_footer_tag_items', get_tags(array(
-                    'hide_empty' => true)));               
+                    'hide_empty' => true)));           
+                        
                 ?>
 
                 <h3><?php echo $philosophy_footer_tag_heading; ?></h3>
-                
+
                 <?php 
                 
                 echo '<div class="tagcloud">';
