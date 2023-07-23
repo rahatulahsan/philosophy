@@ -89,6 +89,11 @@ function philosophy_register_required_plugins() {
 			'slug'      => 'advanced-custom-fields-font-awesome',
 			'required'  => false,
 		),
+		array(
+			'name'      => 'Shortcake (Shortcode UI)',
+			'slug'      => 'shortcode-ui',
+			'required'  => false,
+		),
 
 
 	);
