@@ -94,6 +94,12 @@ function philosophy_register_required_plugins() {
 			'slug'      => 'shortcode-ui',
 			'required'  => false,
 		),
+		array(
+			'name'      => 'Codestar Framework',
+			'slug'      => 'codestar-framework',
+			'required'  => true,
+			'source' 	=> 'https://github.com/Codestar/codestar-framework/archive/master.zip'
+		),
 
 
 	);

@@ -1,6 +1,8 @@
 <?php
 
 require_once get_theme_file_path( '/inc/tgm.php' );
+require_once get_theme_file_path('/lib/codestar-framework/codestar-framework.php') ;
+require_once get_theme_file_path('/inc/cs.php');
 
 if ( ! isset( $content_width ) ) $content_width = 960;
 
@@ -46,6 +48,15 @@ function philosophy_assets(){
     wp_enqueue_script( 'plugins', get_template_directory_uri() . '/assets/js/plugins.js', array('jquery'), 1.0,true);
     if ( is_singular() ) wp_enqueue_script( "comment-reply" );
     wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), 1.0, true);
+
+    if(is_page_template( 'ajax.php' )){
+        wp_enqueue_script( 'ajaxtest-js', get_template_directory_uri() . '/assets/js/ajaxtest.js', array('jquery'), 1.0, true);
+
+        //Getting admin-ajax.php file path
+        $ajaxurl = admin_url('admin-ajax.php');
+        // Passing the file path to our Custom JS file
+        wp_localize_script( 'ajaxtest-js', 'urls', array('ajaxurl' => $ajaxurl));
+    }
 }
 
 add_action('wp_enqueue_scripts', 'philosophy_assets');
@@ -398,3 +409,35 @@ function philosophy_footer_language_items($items){
 
 }
 add_filter('philosophy_footer_tag_items', 'philosophy_footer_language_items');
+
+
+// Ajax request Handle
+
+function philosophy_ajaxtest(){
+    if(check_ajax_referer( 'ajaxtest', 's' )){
+        $info = $_POST['info'];
+        echo strtoupper($info);
+
+        die();
+    }
+    
+}
+
+add_action('wp_ajax_ajaxtest', 'philosophy_ajaxtest'); // For logged in user
+
+function philosophy_ajaxtest_nopriv(){
+    if(check_ajax_referer( 'ajaxtest', 's' )){
+        $info = $_POST['info'];
+        echo 'Global '. strtoupper($info);
+
+        die();
+    }
+    
+}
+
+add_action('wp_ajax_nopriv_ajaxtest', 'philosophy_ajaxtest_nopriv'); // For Non logged in user
+
+function philosophy_nonce_life(){
+    return 20; //in seconds
+}
+add_filter('nonce_life', 'philosophy_nonce_life');
